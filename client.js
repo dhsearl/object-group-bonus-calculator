@@ -40,4 +40,59 @@ const employees = [
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
 
+
+
+
 console.log( employees );
+
+
+
+function bonusCalculator(employee){
+  console.log(`Calculating the bonus of ${employee.name}`);
+  let calculatedBonus = 0;
+  // First check of Rating
+  if(employee.reviewRating <= 2){
+    calculatedBonus = 0;
+    return calculatedBonus; // No Bonus for you!
+  } else if (employee.reviewRating == 3) {
+    calculatedBonus = .04;
+  } else if (employee.reviewRating == 4) {
+    calculatedBonus = .06;
+  } else if (employee.reviewRating == 5) {
+    calculatedBonus = .1;
+  } else {
+    alert(`Employee: ${employee.name} has rating value out of range 0:5`);
+  }
+  // Next check employee number to see if they are OGs
+  if (employee.employeeNumber.length == 4){
+    calculatedBonus += .05;
+  }
+
+  if (Number(employee.annualSalary) > 65000){
+    calculatedBonus -= .01;
+    if (calculatedBonus < 0) calculatedBonus = 0; // Check to make sure those low performers aren't going down
+  }
+
+  if (calculatedBonus > .13) calculatedBonus = .13; // Ensure no one is too big
+  return calculatedBonus;
+}
+
+console.log(bonusCalculator(employees[1]));
+
+function employeeObjectMaker(employee) {
+  let bonus = bonusCalculator(employee);
+  return {
+    name: employee.name,
+    bonusPercentage: bonus*100,
+    totalCompensation: (Number(employee.annualSalary) * (1 + bonus)).toFixed(2),
+    totalBonus: (Number(employee.annualSalary) * bonus).toFixed(2)
+
+  }
+}
+
+function createEmployeePayArray(employeeArray) {
+   
+  return employeeArray.map(employeeObjectMaker);
+}
+console.log(createEmployeePayArray(employees));
+
