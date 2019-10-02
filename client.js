@@ -77,22 +77,62 @@ function bonusCalculator(employee){
   return calculatedBonus;
 }
 
-console.log(bonusCalculator(employees[1]));
+// console.log(bonusCalculator(employees[1])); // testing
 
 function employeeObjectMaker(employee) {
   let bonus = bonusCalculator(employee);
   return {
     name: employee.name,
     bonusPercentage: bonus*100,
-    totalCompensation: (Number(employee.annualSalary) * (1 + bonus)).toFixed(2),
-    totalBonus: (Number(employee.annualSalary) * bonus).toFixed(2)
+    totalCompensation: (Number(employee.annualSalary) * (1 + bonus)).toFixed(0),
+    totalBonus: (Number(employee.annualSalary) * bonus).toFixed(0)
 
   }
 }
 
+// the Main Show
 function createEmployeePayArray(employeeArray) {
    
   return employeeArray.map(employeeObjectMaker);
 }
 console.log(createEmployeePayArray(employees));
+
+// Javascript and jQuery to print to page
+
+
+
+
+const printAllEmployees = () => { // had to use const so It wouldn't pre-load the function :) 
+  let leftBoxHtml = '';  
+  for (let i = 0; i < employees.length; i++) {
+    let employee = employees[i];
+    leftBoxHtml += `<p>Name: ${employee.name} (${employee.employeeNumber})<br></p>`;
+  }
+  leftBoxHtml += `<br><button id='bonusCalc' onclick='printBonuses()'>Calcuate Bonuses &crarr;</button>`
+  let el = document.getElementById('leftBox');
+  el.innerHTML = leftBoxHtml;
+}
+
+
+const printBonuses = () => {
+  let rightBoxHTML = '';
+  // animate a thinking . . .
+  // getting results ...
+  // clear html
+  // print array of bonuses in a table maybe?
+
+  let bonusArray = createEmployeePayArray(employees);
+  for (let i = 0; i < bonusArray.length; i++) {
+    let employee = bonusArray[i];
+    rightBoxHTML += `<p>Bonus: ${employee.bonusPercentage.toPrecision(3)}% an increase of $${employee.totalBonus}<br></p>`;
+  }
+  let el = document.getElementById('rightBox');
+  el.innerHTML = rightBoxHTML
+
+}
+
+
+window.onload = function () {
+  printAllEmployees();
+}
 
