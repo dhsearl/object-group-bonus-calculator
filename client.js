@@ -43,15 +43,15 @@ const employees = [
 
 
 
-console.log( employees );
+console.log(employees);
 
 
 
-function bonusCalculator(employee){
+function bonusCalculator(employee) {
   console.log(`Calculating the bonus of ${employee.name}`);
   let calculatedBonus = 0;
   // First check of Rating
-  if(employee.reviewRating <= 2){
+  if (employee.reviewRating <= 2) {
     calculatedBonus = 0;
     return calculatedBonus; // No Bonus for you!
   } else if (employee.reviewRating == 3) {
@@ -64,11 +64,11 @@ function bonusCalculator(employee){
     alert(`Employee: ${employee.name} has rating value out of range 0:5`);
   }
   // Next check employee number to see if they are OGs
-  if (employee.employeeNumber.length == 4){
+  if (employee.employeeNumber.length == 4) {
     calculatedBonus += .05;
   }
 
-  if (Number(employee.annualSalary) > 65000){
+  if (Number(employee.annualSalary) > 65000) {
     calculatedBonus -= .01;
     if (calculatedBonus < 0) calculatedBonus = 0; // Check to make sure those low performers aren't going down
   }
@@ -83,7 +83,7 @@ function employeeObjectMaker(employee) {
   let bonus = bonusCalculator(employee);
   return {
     name: employee.name,
-    bonusPercentage: bonus*100,
+    bonusPercentage: bonus * 100,
     totalCompensation: (Number(employee.annualSalary) * (1 + bonus)).toFixed(0),
     totalBonus: (Number(employee.annualSalary) * bonus).toFixed(0)
 
@@ -92,44 +92,71 @@ function employeeObjectMaker(employee) {
 
 // the Main Show
 function createEmployeePayArray(employeeArray) {
-   
+
   return employeeArray.map(employeeObjectMaker);
 }
 console.log(createEmployeePayArray(employees));
 
+
+
+
+
 // Javascript and jQuery to print to page
 
-
-
-
 const printAllEmployees = () => { // had to use const so It wouldn't pre-load the function :) 
-  let leftBoxHtml = '';  
+  let leftBoxHtml = '';
   for (let i = 0; i < employees.length; i++) {
-    let employee = employees[i];
-    leftBoxHtml += `<p>Name: ${employee.name} (${employee.employeeNumber})<br></p>`;
+    leftBoxHtml += `<p>Name: ${employees[i].name} (${employees[i].employeeNumber})<br></p>`;
   }
-  leftBoxHtml += `<br><button id='bonusCalc' onclick='printBonuses()'>Calcuate Bonuses &crarr;</button>`
+
+  // make a button appear
+  leftBoxHtml += `<br><button id='bonusCalc' onclick='printBonuses()'>Calcuate Bonuses &crarr;</button>`;
+
+  // manipulate DOM element
   let el = document.getElementById('leftBox');
   el.innerHTML = leftBoxHtml;
 }
 
 
 const printBonuses = () => {
-  let rightBoxHTML = '';
+  // To do:
   // animate a thinking . . .
   // getting results ...
   // clear html
-  // print array of bonuses in a table maybe?
+  // print array of bonuses in a table maybe? nah
 
+
+  // create Bonus
   let bonusArray = createEmployeePayArray(employees);
-  for (let i = 0; i < bonusArray.length; i++) {
-    let employee = bonusArray[i];
-    rightBoxHTML += `<p>Bonus: ${employee.bonusPercentage.toPrecision(3)}% an increase of $${employee.totalBonus}<br></p>`;
-  }
-  let el = document.getElementById('rightBox');
-  el.innerHTML = rightBoxHTML
 
+  let rightBoxHTML = '';
+  for (let i = 0; i < bonusArray.length; i++) {
+    rightBoxHTML += `<p>Bonus: ${bonusArray[i].bonusPercentage.toPrecision(3)}% \
+    an increase of $${bonusArray[i].totalBonus}<br></p>`;
+  }
+
+
+  // go into thinking mode :)
+  let i = 0;
+  let speed = 500;
+  function thinkingMode() {
+    if (i < 6) {
+      document.getElementById("rightBox").innerHTML += ". ";
+      i++;
+      setTimeout(thinkingMode, speed);
+    }
+
+  }
+  // time the array to display when we're done thinking.
+  function doneThinking() {
+    setTimeout(function () { document.getElementById("rightBox").innerHTML = rightBoxHTML; }, 3100) // little after that one is done
+  }
+
+  // Call my two "animation functions" doesn't matter which order due to timing.
+  thinkingMode();
+  doneThinking();
 }
+
 
 
 window.onload = function () {
