@@ -101,7 +101,7 @@ console.log(createEmployeePayArray(employees));
 
 
 
-// Javascript and jQuery to print to page
+// Javascript to print to page
 
 const printAllEmployees = () => { // had to use const so It wouldn't pre-load the function :) 
   let leftBoxHtml = '';
