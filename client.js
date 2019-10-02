@@ -106,7 +106,7 @@ console.log(createEmployeePayArray(employees));
 const printAllEmployees = () => { // had to use const so It wouldn't pre-load the function :) 
   let leftBoxHtml = '';
   for (let i = 0; i < employees.length; i++) {
-    leftBoxHtml += `<p>Name: ${employees[i].name} (${employees[i].employeeNumber})<br></p>`;
+    leftBoxHtml += `<p>Employee: ${employees[i].name} (${employees[i].employeeNumber})<br></p>`;
   }
 
   // make a button appear
@@ -131,7 +131,8 @@ const printBonuses = () => {
 
   let rightBoxHTML = '';
   for (let i = 0; i < bonusArray.length; i++) {
-    rightBoxHTML += `<p>Bonus: ${bonusArray[i].bonusPercentage.toPrecision(3)}% \
+    rightBoxHTML += 
+    `<p>Bonus ${bonusArray[i].bonusPercentage.toPrecision(3)}% \
     an increase of $${bonusArray[i].totalBonus}<br></p>`;
   }
 

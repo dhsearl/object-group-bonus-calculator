@@ -11,24 +11,44 @@ h1 {
 }
 
 header {
-    margin: 0px auto;
+    padding-left: 5rem;
     width: 80%;
+    max-width: 900px;
 }
 
 main {
     width: 90%;
     max-width: 900px;
-    margin: 0px auto;
+    padding-left: 5rem;
+    /* margin: 0px auto; */
 }
 
 .container {
     /* border: 1px dashed #FFFFFF; */
+
     display: flex;
-    flex-direction: row;
-    align-content: flex-start;
     padding: 1.25rem;
 }
-
+ /* What if I'm small ? */
+@media (max-width: 804px){
+    body{
+        margin: 0px 10px;
+        font-size: 1rem;
+        padding: 0 0 0 10px;
+    }
+    main {
+        padding: 0 0 0 10px;
+        padding-left: 1rem;
+        width: 100%;
+    }
+    header{
+        padding: 0 0 0 10px;
+        width: 100%;
+    }
+    .container{
+        padding: 0;
+    }
+}
 #leftBox {
     margin-right: 1rem;
 }
